@@ -117,8 +117,7 @@ class App extends React.Component {
         }
     }
   render(){
-        console.log(this.state.firstActorMovies)
-        console.log(this.state.sameMovies)
+
       return (
           <div className="App">
 
