@@ -62,7 +62,7 @@ class CardExample extends React.Component {
         }
         else{
             return(
-                <div>None</div>
+                <div>Loading...</div>
             )
         }
     }
@@ -89,6 +89,11 @@ export default class CommonMovies extends React.Component{
                 {this.props.sameMovies.map(movie=>(
                     <CardExample movie={movie}> </CardExample>
                 ))}
+                {this.props.sameMovies.length<1 && (
+                    <h1>
+                        No common Movies
+                    </h1>
+                )}
             </div>
 
         )

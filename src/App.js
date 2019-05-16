@@ -76,6 +76,9 @@ class App extends React.Component {
 
     }
     startMatching= async()=>{
+        this.setState({
+            sameMovies:[]
+        })
         if(this.state.firstActorMovies.length>1 && this.state.secondActorMovies.length>1){
             console.log(`start lopping over ${this.state.firstActorMovies.length}`)
             let actorToIterate = {}
@@ -114,6 +117,9 @@ class App extends React.Component {
 
                     }
             }
+            this.setState({
+                loadingMovies:false
+            })
         }
     }
   render(){
