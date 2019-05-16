@@ -25,11 +25,11 @@ class App extends React.Component {
                 firstActor:actor
             })
             if(actor.id){
-                console.log(actor.id)
+                // console.log(actor.id)
                 this.setState({loadingMovies:true})
                 await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=${actor.id}`)
                     .then(async response=>{
-                        console.log(response)
+                        // console.log(response)
                         for(let i=1;i<=response.data.total_pages;i++){
                             console.log(`page ${i}`)
                             await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${i}&with_cast=${actor.id}`)
@@ -65,7 +65,7 @@ class App extends React.Component {
                                     this.setState({
                                         secondActorMovies:this.state.secondActorMovies.concat(response.data.results)
                                     })
-                                    console.log(response.data.results)
+                                    // console.log(response.data.results)
                                 })
                         }
                     })
@@ -99,10 +99,10 @@ class App extends React.Component {
                         .then(response=>{
                             for(let y=0;y<=response.data.cast.length;y++){
                                 if(response.data.cast[y].name.includes(actorToLookFor.name)){
-                                    console.log(response.data.cast[y])
-                                    console.log(i)
-                                    console.log(movieId)
-                                    console.log(this.state.sameMovies)
+                                    // console.log(response.data.cast[y])
+                                    // console.log(i)
+                                    // console.log(movieId)
+                                    // console.log(this.state.sameMovies)
 
                                     this.setState({
                                         sameMovies:this.state.sameMovies.concat(movieId)

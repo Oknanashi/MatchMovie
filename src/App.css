@@ -31,3 +31,16 @@
     transform: rotate(360deg);
   }
 }
+
+@media only screen and (max-width: 600px)  {
+  .App{
+    display:flex;
+    flex-direction: column;
+  }
+  .App :nth-child(2){
+    order: 3;
+  }
+  h1{
+    font-size: 0.8rem;
+  }
+}

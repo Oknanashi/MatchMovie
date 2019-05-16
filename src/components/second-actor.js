@@ -72,8 +72,8 @@ export default class SecondActor extends React.Component {
                         if(actor.profile_path){
                             return(
                                 <ActorSelect key={actor.id} value={JSON.stringify(actor,null,2)} onClick={(e)=>this.selectActor(e)}>
-                                    <img src={`https://image.tmdb.org/t/p/h100${actor.profile_path}`} alt=""/>
-                                    <p>{actor.name}</p>
+                                    <img value={JSON.stringify(actor,null,2)} src={`https://image.tmdb.org/t/p/h100${actor.profile_path}`} alt=""/>
+                                    <p value={JSON.stringify(actor,null,2)}>{actor.name}</p>
                                 </ActorSelect>
                             )
                         }

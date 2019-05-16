@@ -30,7 +30,7 @@ class CardExample extends React.Component {
         this.setState(() => ({ hovered: false }));
     }
     render() {
-        console.log(this.state.movie)
+        // console.log(this.state.movie)
 
         if(this.state.movie){
             return (
@@ -76,7 +76,7 @@ export default class CommonMovies extends React.Component{
         console.log(this.props.sameMovies)
         return(
             <div>
-                <h1>No common Movie</h1>
+
                 {this.props.loadingMovies && (
                     <Loader
                         type="Puff"
@@ -87,7 +87,7 @@ export default class CommonMovies extends React.Component{
                 )}
                 <button onClick={this.props.startMatching}>Start Matching</button>
                 {this.props.sameMovies.map(movie=>(
-                    <CardExample movie={movie}> </CardExample>
+                    <CardExample key={movie} movie={movie}> </CardExample>
                 ))}
                 {this.props.sameMovies.length<1 && (
                     <h1>
