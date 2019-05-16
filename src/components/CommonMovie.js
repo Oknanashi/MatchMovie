@@ -5,7 +5,8 @@ import axios from 'axios'
 
 class CardExample extends React.Component {
     state={
-        movie:{}
+        movie:{},
+        isMovie:true
     }
     constructor(props) {
         super(props);
@@ -15,13 +16,26 @@ class CardExample extends React.Component {
     }
 
     async componentDidMount(){
-        await axios.get(`https://api.themoviedb.org/3/movie/${this.props.movie}?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
-            .then(response=>{
-                console.log(response)
-                this.setState({
-                    movie:response.data
+        try{
+            await axios.get(`https://api.themoviedb.org/3/movie/${this.props.movie}?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
+                .then(response=>{
+                    console.log(response)
+                    this.setState({
+                        movie:response.data,
+                        isMovie:true
+                    })
                 })
-            })
+        } catch (e) {
+            await axios.get(`https://api.themoviedb.org/3/tv/${this.props.movie}?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
+                .then(response=>{
+                    console.log(response.data)
+                    this.setState({
+                        movie:response.data,
+                        isMovie:false
+                    })
+                })
+        }
+
     }
     _handleMouseEnter() {
         this.setState(() => ({ hovered: true }));
@@ -46,9 +60,15 @@ class CardExample extends React.Component {
                         onMouseLeave={this.handleMouseLeave}>
                         <Text align="center" bold size="xl">
                             <Link href="https://pinterest.com">
-                                <Box paddingX={3} paddingY={2}>
-                                    {this.state.movie.original_title}
-                                </Box>
+                                {this.state.isMovie ? (
+                                    <Box paddingX={3} paddingY={2}>
+                                        {this.state.movie.original_title}
+                                    </Box>
+                                ) :(
+                                    <Box paddingX={3} paddingY={2}>
+                                        {this.state.movie.name}
+                                    </Box>
+                                )}
                             </Link>
                         </Text>
                         <Button

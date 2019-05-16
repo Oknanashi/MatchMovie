@@ -44,6 +44,12 @@ class App extends React.Component {
                                 })
                         }
                     })
+                await axios.get(`https://api.themoviedb.org/3/person/${actor.id}/tv_credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
+                    .then(response=>{
+                        this.setState({
+                            firstActorMovies:this.state.firstActorMovies.concat(response.data.cast)
+                        })
+                    })
             }
         } else if (which=='second'){
             this.setState({
@@ -65,10 +71,17 @@ class App extends React.Component {
                                     this.setState({
                                         secondActorMovies:this.state.secondActorMovies.concat(response.data.results)
                                     })
-                                    // console.log(response.data.results)
+
                                 })
                         }
                     })
+                await axios.get(`https://api.themoviedb.org/3/person/${actor.id}/tv_credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
+                    .then(response=>{
+                        this.setState({
+                            secondActorMovies:this.state.secondActorMovies.concat(response.data.cast)
+                        })
+                    })
+
             }else {
                 console.error('no id')
             }
@@ -83,6 +96,8 @@ class App extends React.Component {
             console.log(`start lopping over ${this.state.firstActorMovies.length}`)
             let actorToIterate = {}
             let actorToLookFor = {}
+            console.log(this.state.firstActorMovies)
+            console.log(this.state.secondActorMovies)
             if(this.state.firstActorMovies.length>this.state.secondActorMovies.length){
                 actorToIterate = this.state.secondActorMovies
                 actorToLookFor = this.state.firstActor
@@ -95,22 +110,47 @@ class App extends React.Component {
 
                     let movieId = actorToIterate[i].id
 
-                     await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726`)
-                        .then(response=>{
-                            for(let y=0;y<=response.data.cast.length;y++){
-                                if(response.data.cast[y].name.includes(actorToLookFor.name)){
-                                    // console.log(response.data.cast[y])
-                                    // console.log(i)
-                                    // console.log(movieId)
-                                    // console.log(this.state.sameMovies)
+                     if(actorToIterate[i].original_name){
+                        //Looking for TV SHOW
+                        console.log(actorToIterate[i].original_name)
+                         await axios.get(`https://api.themoviedb.org/3/tv/${movieId}/season/1/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
+                             .then(response=>{
+                                 console.log(response.data.cast)
+                                 console.log(actorToLookFor.name)
+                                 for(let y=0;y<=response.data.cast.length;y++){
+                                     if(response.data.cast[y].name.includes(actorToLookFor.name)){
 
-                                    this.setState({
-                                        sameMovies:this.state.sameMovies.concat(movieId)
-                                    })
+                                         // console.log(response.data.cast[y])
+                                         // console.log(i)
+                                         // console.log(movieId)
+                                         // console.log(this.state.sameMovies)
 
-                                }
-                            }
-                        })
+                                         this.setState({
+                                             sameMovies:this.state.sameMovies.concat(movieId)
+                                         })
+
+                                     }
+                                 }
+                             })
+                     }else {
+                            //Looking for movie
+                         await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726`)
+                             .then(response=>{
+                                 for(let y=0;y<=response.data.cast.length;y++){
+                                     if(response.data.cast[y].name.includes(actorToLookFor.name)){
+                                         // console.log(response.data.cast[y])
+                                         // console.log(i)
+                                         // console.log(movieId)
+                                         // console.log(this.state.sameMovies)
+
+                                         this.setState({
+                                             sameMovies:this.state.sameMovies.concat(movieId)
+                                         })
+
+                                     }
+                                 }
+                             })
+                     }
 
 
                 } catch (e) {
@@ -123,7 +163,8 @@ class App extends React.Component {
         }
     }
   render(){
-
+        console.log(this.state.firstActorMovies)
+        console.log(this.state.secondActorMovies)
       return (
           <div className="App">
 
