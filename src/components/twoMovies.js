@@ -1,164 +1,119 @@
 import React from 'react'
 
 import CommonMovies from './CommonMovie'
-import FirstActor from './first-actor'
-import SecondActor from './second-actor'
+import firstMovie from './first-actor'
+import secondMovie from './second-actor'
+
+import SelectMovie from './SelectMovie'
 import axios from "axios/index";
 
 export default class TwoMovies extends React.Component{
 
 
     state={
-        firstActor:{},
-        secondActor:{},
+        firstMovie:{},
+        secondMovie:{},
         loadingMovies:false,
-        firstActorMovies:[],
-        secondActorMovies:[],
-        sameMovies:[]
+        firstMovieActors:[],
+        secondMovieActors:[],
+        sameStuff:[]
     }
 
 
-    setActor=async (actor,which)=>{
+    setMovie=async (movie,which)=>{
+        console.log(movie)
         if(which=='first'){
             this.setState({
-                firstActor:actor
+                firstMovie:movie
             })
-            if(actor.id){
+
+            if(movie.id){
                 // console.log(actor.id)
-                this.setState({loadingMovies:true})
-                await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=${actor.id}`)
-                    .then(async response=>{
-                        // console.log(response)
-                        for(let i=1;i<=response.data.total_pages;i++){
-                            console.log(`page ${i}`)
-                            await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${i}&with_cast=${actor.id}`)
-                                .then(response=>{
-                                    // this.setState({
-                                    //     firstActorMovies:this.state.firstActorMovies.push(response.data.results)
-                                    // })
-                                    this.setState({
-                                        firstActorMovies:this.state.firstActorMovies.concat(response.data.results)
-                                    })
-                                    console.log(response.data.results)
-                                })
-                        }
-                    })
-                await axios.get(`https://api.themoviedb.org/3/person/${actor.id}/tv_credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
-                    .then(response=>{
-                        this.setState({
-                            firstActorMovies:this.state.firstActorMovies.concat(response.data.cast)
+                //looking for movie credits
+                if(movie.original_title){
+                    this.setState({loadingMovies:true})
+                    await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726`)
+                        .then(response=>{
+                            console.log(response.data.cast)
+                            this.setState({
+                                firstMovieActors:response.data.cast
+                            })
                         })
-                    })
+                } else {
+
+                    //looking for tv credits
+                    await axios.get(`https://api.themoviedb.org/3/tv/${movie.id}/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
+                        .then(response=>{
+                            console.log(response.data.cast)
+                            this.setState({
+                                firstMovieActors:response.data.cast
+                            })
+                        })
+                }
             }
         } else if (which=='second'){
             this.setState({
-                secondActor:actor
+                secondMovie:movie
             })
-            if(actor.id){
-                console.log(actor.id)
-                this.setState({loadingMovies:true})
-                await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=${actor.id}`)
-                    .then(async response=>{
-                        console.log(response)
-                        for(let i=1;i<=response.data.total_pages;i++){
-                            console.log(`page ${i}`)
-                            await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${i}&with_cast=${actor.id}`)
-                                .then(response=>{
-                                    // this.setState({
-                                    //     firstActorMovies:this.state.firstActorMovies.push(response.data.results)
-                                    // })
-                                    this.setState({
-                                        secondActorMovies:this.state.secondActorMovies.concat(response.data.results)
-                                    })
 
-                                })
-                        }
-                    })
-                await axios.get(`https://api.themoviedb.org/3/person/${actor.id}/tv_credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
-                    .then(response=>{
-                        this.setState({
-                            secondActorMovies:this.state.secondActorMovies.concat(response.data.cast)
+            if(movie.id){
+                // console.log(actor.id)
+                //looking for movie credits
+                if(movie.original_title){
+                    this.setState({loadingMovies:true})
+                    await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726`)
+                        .then(response=>{
+                            console.log(response.data.cast)
+                            this.setState({
+                                secondMovieActors:response.data.cast
+                            })
                         })
-                    })
+                } else {
 
-            }else {
-                console.error('no id')
+                    //looking for tv credits
+                    await axios.get(`https://api.themoviedb.org/3/tv/${movie.id}/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
+                        .then(response=>{
+                            console.log(response.data.cast)
+                            this.setState({
+                                secondMovieActors:response.data.cast
+                            })
+                        })
+                }
             }
         }
 
     }
     startMatching= async()=>{
         this.setState({
-            sameMovies:[]
+            sameStuff:[]
         })
-        if(this.state.firstActorMovies.length>1 && this.state.secondActorMovies.length>1){
-            console.log(`start lopping over ${this.state.firstActorMovies.length}`)
-            let actorToIterate = {}
-            let actorToLookFor = {}
-            console.log(this.state.firstActorMovies)
-            console.log(this.state.secondActorMovies)
-            if(this.state.firstActorMovies.length>this.state.secondActorMovies.length){
-                actorToIterate = this.state.secondActorMovies
-                actorToLookFor = this.state.firstActor
+        let movieToIterateOver = []
+        let otherOne = []
+        console.log(this.state.firstMovieActors.length,this.state.secondMovieActors.length)
+        if(this.state.firstMovieActors.length>1 && this.state.secondMovieActors.length>1){
+            if(this.state.firstMovieActors.length>this.state.secondMovieActors.length){
+                movieToIterateOver = this.state.secondMovieActors
+                otherOne = this.state.firstMovieActors
             } else{
-                actorToIterate = this.state.firstActorMovies
-                actorToLookFor = this.state.secondActor
+                movieToIterateOver = this.state.firstMovieActors
+                otherOne = this.state.secondMovieActors
             }
-            for(let i=1;i<=actorToIterate.length;i++){
+            for(let i=0;i<=movieToIterateOver.length;i++){
+
                 try{
-
-                    let movieId = actorToIterate[i].id
-
-                    if(actorToIterate[i].original_name){
-                        //Looking for TV SHOW
-                        console.log(actorToIterate[i].original_name)
-                        await axios.get(`https://api.themoviedb.org/3/tv/${movieId}/season/1/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US`)
-                            .then(response=>{
-                                console.log(response.data.cast)
-                                console.log(actorToLookFor.name)
-                                for(let y=0;y<=response.data.cast.length;y++){
-                                    if(response.data.cast[y].name.includes(actorToLookFor.name)){
-
-                                        // console.log(response.data.cast[y])
-                                        // console.log(i)
-                                        // console.log(movieId)
-                                        // console.log(this.state.sameMovies)
-
-                                        this.setState({
-                                            sameMovies:this.state.sameMovies.concat(movieId)
-                                        })
-
-                                    }
-                                }
+                    for(let y =0;y<=otherOne.length;y++){
+                        if(movieToIterateOver[i].name==otherOne[y].name){
+                            console.log(`Match with ${JSON.stringify(movieToIterateOver[i])}`)
+                            this.setState({
+                                sameStuff:this.state.sameStuff.concat(movieToIterateOver)
                             })
-                    }else {
-                        //Looking for movie
-                        await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=d4c86d3d23078bb5e3ea14ae379a2726`)
-                            .then(response=>{
-                                for(let y=0;y<=response.data.cast.length;y++){
-                                    if(response.data.cast[y].name.includes(actorToLookFor.name)){
-                                        // console.log(response.data.cast[y])
-                                        // console.log(i)
-                                        // console.log(movieId)
-                                        // console.log(this.state.sameMovies)
-
-                                        this.setState({
-                                            sameMovies:this.state.sameMovies.concat(movieId)
-                                        })
-
-                                    }
-                                }
-                            })
+                        }
                     }
-
-
                 } catch (e) {
-
+                    console.error(e)
                 }
             }
-            this.setState({
-                loadingMovies:false
-            })
+
         }
     }
     render(){
@@ -166,15 +121,16 @@ export default class TwoMovies extends React.Component{
             <div className='mainContent'>
                 <div>
                     <h1>Select your first movie</h1>
-                    <FirstActor setActor={this.setActor}/>
+                    <SelectMovie which={'first'} setMovie={this.setMovie}/>
                 </div>
                 <CommonMovies
-                    sameMovies={this.state.sameMovies}
+                    sameStuff={this.state.sameStuff}
+                    media_type={'movie'}
                     startMatching={this.startMatching}
-                    loadingMovies={this.state.loadingMovies}/>
+                    loadingActors={this.state.loadingActors}/>
                 <div>
                     <h1>Select your second movie</h1>
-                    <SecondActor setActor={this.setActor}/>
+                    <SelectMovie which={'second'} setMovie={this.setMovie}/>
                 </div>
             </div>
         )

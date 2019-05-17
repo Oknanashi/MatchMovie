@@ -3,7 +3,7 @@ import Loader from 'react-loader-spinner'
 import {Card,Box,Avatar,Text,Link,Button} from 'gestalt'
 import axios from 'axios'
 
-class CardExample extends React.Component {
+class ActorCard extends React.Component {
     state={
         movie:{},
         isMovie:true
@@ -88,12 +88,55 @@ class CardExample extends React.Component {
     }
 }
 
+class MovieCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hovered: false };
+        this.handleMouseEnter = this._handleMouseEnter.bind(this);
+        this.handleMouseLeave = this._handleMouseLeave.bind(this);
+    }
+    _handleMouseEnter() {
+        this.setState(() => ({ hovered: true }));
+    }
+    _handleMouseLeave() {
+        this.setState(() => ({ hovered: false }));
+    }
+    render() {
+        return (
+            <Box maxWidth={236} padding={2} column={12}>
+                <Card
+                    image={
+                        <Avatar
+                            name="James Jones"
+                            src={`https://image.tmdb.org/t/p/w500${this.props.actor.profile_path}`}
+                        />
+                    }
+                    onMouseEnter={this.handleMouseEnter}
+                    onMouseLeave={this.handleMouseLeave}>
+                    <Text align="center" bold size="xl">
+                        <Link href="https://pinterest.com">
+                            <Box paddingX={3} paddingY={2}>
+                                {this.props.actor.name}
+                            </Box>
+                        </Link>
+                    </Text>
+                    <Button
+                        accessibilityLabel="Follow James Jones"
+                        color="red"
+                        text="Follow"
+                    />
+                </Card>
+            </Box>
+        );
+    }
+}
+
 export default class CommonMovies extends React.Component{
 
 
 
     render(){
-        console.log(this.props.sameMovies)
+        console.log(this.props.sameStuff)
         return(
             <div>
 
@@ -107,15 +150,24 @@ export default class CommonMovies extends React.Component{
                 )}
                 <Box margin={-2}>
                     <Box padding={2}>
-                        <Button onClick={()=>this.props.startMatching()} accessibilityLabel="Add James" text="Start matching"  color="blue"
+                        <Button onClick={this.props.startMatching} accessibilityLabel="Add James" text="Start matching"  color="blue"
                                 size="sm"/>
                     </Box>
 
+
                 </Box>
-                {this.props.sameMovies.map(movie=>(
-                    <CardExample key={movie} movie={movie}> </CardExample>
-                ))}
-                {this.props.sameMovies.length<1 && (
+                {this.props.sameStuff.map(movie=>{
+                    if(this.props.media_type=='actor'){
+                        return (
+                            <ActorCard key={movie} movie={movie}> </ActorCard>
+                        )
+                    } else {
+                        return (
+                            <MovieCard key={movie} actor={movie}/>
+                        )
+                    }
+                })}
+                {this.props.sameStuff.length<1 && (
                     <h1>
                         No common Movies
                     </h1>

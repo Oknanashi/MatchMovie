@@ -15,7 +15,7 @@ export default class TwoActors extends React.Component{
         loadingMovies:false,
         firstActorMovies:[],
         secondActorMovies:[],
-        sameMovies:[]
+        sameStuff:[]
     }
 
 
@@ -92,7 +92,7 @@ export default class TwoActors extends React.Component{
     startMatching= async()=>{
         console.log('start mathcing')
         this.setState({
-            sameMovies:[]
+            sameStuff:[]
         })
         if(this.state.firstActorMovies.length>1 && this.state.secondActorMovies.length>1){
             console.log(`start lopping over ${this.state.firstActorMovies.length}`)
@@ -125,10 +125,10 @@ export default class TwoActors extends React.Component{
                                         // console.log(response.data.cast[y])
                                         // console.log(i)
                                         // console.log(movieId)
-                                        // console.log(this.state.sameMovies)
+                                        // console.log(this.state.sameStuff)
 
                                         this.setState({
-                                            sameMovies:this.state.sameMovies.concat(movieId)
+                                            sameStuff:this.state.sameStuff.concat(movieId)
                                         })
 
                                     }
@@ -143,10 +143,10 @@ export default class TwoActors extends React.Component{
                                         // console.log(response.data.cast[y])
                                         // console.log(i)
                                         // console.log(movieId)
-                                        // console.log(this.state.sameMovies)
+                                        // console.log(this.state.sameStuff)
 
                                         this.setState({
-                                            sameMovies:this.state.sameMovies.concat(movieId)
+                                            sameStuff:this.state.sameStuff.concat(movieId)
                                         })
 
                                     }
@@ -165,7 +165,7 @@ export default class TwoActors extends React.Component{
         }
     }
     render(){
-        console.log(this.state.sameMovies)
+        console.log(this.state.sameStuff)
         return(
             <div className='mainContent'>
                 <div>
@@ -173,8 +173,9 @@ export default class TwoActors extends React.Component{
                     <FirstActor setActor={this.setActor}/>
                 </div>
                 <CommonMovies
-                    sameMovies={this.state.sameMovies}
+                    sameStuff={this.state.sameStuff}
                     startMatching={this.startMatching}
+                    media_type={'actor'}
                     loadingMovies={this.state.loadingMovies}/>
                 <div>
                     <h1>Select your second Actor</h1>
