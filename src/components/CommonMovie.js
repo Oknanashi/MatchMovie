@@ -105,7 +105,13 @@ export default class CommonMovies extends React.Component{
                         width="100"
                     />
                 )}
-                <button onClick={this.props.startMatching}>Start Matching</button>
+                <Box margin={-2}>
+                    <Box padding={2}>
+                        <Button onClick={()=>this.props.startMatching()} accessibilityLabel="Add James" text="Start matching"  color="blue"
+                                size="sm"/>
+                    </Box>
+
+                </Box>
                 {this.props.sameMovies.map(movie=>(
                     <CardExample key={movie} movie={movie}> </CardExample>
                 ))}

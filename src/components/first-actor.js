@@ -25,8 +25,8 @@ export default class FirstActor extends React.Component {
 
 
 
-    onEnter = async (e)=>{
-        e.preventDefault()
+    onEnter = async ()=>{
+
         if(this.state.value){
             await axios.get(`https://api.themoviedb.org/3/search/person?api_key=d4c86d3d23078bb5e3ea14ae379a2726&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
                 .then((respnse)=>{
@@ -59,9 +59,13 @@ export default class FirstActor extends React.Component {
                 <Box flex="grow" paddingX={2}>
                     <form onSubmit={(e)=>this.onEnter(e)}>
                         <SearchField
+
                             accessibilityLabel="Demo Search Field"
                             id="searchField"
-                            onChange={({ value }) => this.setState({ value })}
+                            onChange={({value} ) => {
+                                this.setState({ value })
+                                this.onEnter()
+                            }}
                             placeholder="Search and explore"
                             value={value}
 

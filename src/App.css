@@ -1,7 +1,22 @@
-.App {
-  text-align: center;
+html,body{
+  font-family: 'Baloo Bhai', cursive;
+
 }
 
+.mainContent {
+  text-align: center;
+}
+.main{
+  display: block;
+}
+.mainContent{
+  display: flex;
+  justify-content: space-between;
+}
+.activeLink{
+  border-bottom: 3px solid #333;
+
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -22,6 +37,9 @@
 .App-link {
   color: #61dafb;
 }
+.logo img{
+  max-height:50px;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -33,11 +51,11 @@
 }
 
 @media only screen and (max-width: 600px)  {
-  .App{
+  .mainContent{
     display:flex;
     flex-direction: column;
   }
-  .App :nth-child(2){
+  .mainContent :nth-child(2){
     order: 3;
   }
   h1{
