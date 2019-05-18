@@ -73,7 +73,7 @@ class ActorCard extends React.Component {
                         </Text>
                         <Button
                             accessibilityLabel="Follow James Jones"
-                            color="red"
+                            color="blue"
                             text="Look on tmdb"
                         />
                     </Card>
@@ -122,7 +122,7 @@ class MovieCard extends React.Component {
                     </Text>
                     <Button
                         accessibilityLabel="Follow James Jones"
-                        color="red"
+                        color="blue"
                         text="Follow"
                     />
                 </Card>

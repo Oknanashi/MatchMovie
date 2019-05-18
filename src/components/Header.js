@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import logo from '../logo.png'
+import logo from './../logo.png'
 import {
     BrowserRouter as Router,
     Link,Switch,Route,NavLink
@@ -36,7 +36,9 @@ export default class Header extends React.Component{
 
                 <NavBar>
                     <div className='logo'>
-                        <img src={logo}  alt="logo"/>
+                        <NavLink exact to='/' >
+                            <img src={logo}  alt="logo"/>
+                        </NavLink>
                     </div>
 
                         <NavLink exact to='/' activeClassName='activeLink'>

@@ -26,7 +26,7 @@ class App extends React.Component {
           <Router>
               <Helmet>
                   <meta charSet="utf-8" />
-                  <title>My Title</title>
+                  <title>FindMatch</title>
                   <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap" rel="stylesheet"/>
               </Helmet>
               <div className="main">
@@ -34,7 +34,7 @@ class App extends React.Component {
 
                   <Switch>
                       <Route exact path='/' component={TwoActors}/>
-                      <Route path='/twoMovies' component={TwoMovies}/>
+                      <Route path='/twoMovies/' component={TwoMovies}/>
                   </Switch>
               </div>
           </Router>
