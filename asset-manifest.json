@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Movie-match/home/static/css/main.19d27b79.chunk.css",
-    "main.js": "/Movie-match/home/static/js/main.3aaf5bf7.chunk.js",
-    "main.js.map": "/Movie-match/home/static/js/main.3aaf5bf7.chunk.js.map",
-    "runtime~main.js": "/Movie-match/home/static/js/runtime~main.5dd00ec6.js",
-    "runtime~main.js.map": "/Movie-match/home/static/js/runtime~main.5dd00ec6.js.map",
-    "static/css/2.f6e7097a.chunk.css": "/Movie-match/home/static/css/2.f6e7097a.chunk.css",
-    "static/js/2.58cd463d.chunk.js": "/Movie-match/home/static/js/2.58cd463d.chunk.js",
-    "static/js/2.58cd463d.chunk.js.map": "/Movie-match/home/static/js/2.58cd463d.chunk.js.map",
-    "index.html": "/Movie-match/home/index.html",
-    "precache-manifest.0fc36b976998a662d672a7549232f5c5.js": "/Movie-match/home/precache-manifest.0fc36b976998a662d672a7549232f5c5.js",
-    "service-worker.js": "/Movie-match/home/service-worker.js",
-    "static/css/2.f6e7097a.chunk.css.map": "/Movie-match/home/static/css/2.f6e7097a.chunk.css.map",
-    "static/css/main.19d27b79.chunk.css.map": "/Movie-match/home/static/css/main.19d27b79.chunk.css.map",
-    "static/media/logo.png": "/Movie-match/home/static/media/logo.5547392c.png"
+    "main.css": "/Movie-match/static/css/main.b122fa5d.chunk.css",
+    "main.js": "/Movie-match/static/js/main.a60cc08a.chunk.js",
+    "main.js.map": "/Movie-match/static/js/main.a60cc08a.chunk.js.map",
+    "runtime~main.js": "/Movie-match/static/js/runtime~main.774bcce8.js",
+    "runtime~main.js.map": "/Movie-match/static/js/runtime~main.774bcce8.js.map",
+    "static/css/2.cf0da110.chunk.css": "/Movie-match/static/css/2.cf0da110.chunk.css",
+    "static/js/2.5f552761.chunk.js": "/Movie-match/static/js/2.5f552761.chunk.js",
+    "static/js/2.5f552761.chunk.js.map": "/Movie-match/static/js/2.5f552761.chunk.js.map",
+    "index.html": "/Movie-match/index.html",
+    "precache-manifest.d55f0f2393fd2b9b2b0dcbcb36b49109.js": "/Movie-match/precache-manifest.d55f0f2393fd2b9b2b0dcbcb36b49109.js",
+    "service-worker.js": "/Movie-match/service-worker.js",
+    "static/css/2.cf0da110.chunk.css.map": "/Movie-match/static/css/2.cf0da110.chunk.css.map",
+    "static/css/main.b122fa5d.chunk.css.map": "/Movie-match/static/css/main.b122fa5d.chunk.css.map",
+    "static/media/logo.png": "/Movie-match/static/media/logo.5547392c.png"
   }
 }
