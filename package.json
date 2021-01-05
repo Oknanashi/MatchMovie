@@ -5,7 +5,7 @@
   "homepage": "https://oknanashi.github.io/Movie-match",
   "dependencies": {
     "@babel/runtime": "^7.4.4",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "gestalt": "^0.96.0",
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",
